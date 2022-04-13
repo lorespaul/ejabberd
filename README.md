@@ -177,6 +177,20 @@ Check the full list of targets:
     make help
 
 
+### 4. Use ejabberd with IntelliJ
+
+- Install all dependencies including erlang and elixir
+- Add var/ejabberd/ejabberd.yml and var/ejabberd/cacert.pem files (ejabberd.yml must point to cacert.pem)
+- Setup module in project structure
+- Import project as rebar3 project
+- Install erlang and elixir plugins in IntelliJ
+- In a terminal in project root run command 'mix deps.get'
+- Add "IEx Mix" configuration for running project. Set Working directory and if error on openssl or yaml occur during compilation add this in environment variables:
+  - LDFLAGS -L/opt/homebrew/opt/openssl@1.1/lib -L/opt/homebrew/opt/libyaml/lib
+  - CFLAGS -I/opt/homebrew/opt/openssl@1.1/include -I/opt/homebrew/opt/libyaml/include
+  - CPPFLAGS -I/opt/homebrew/opt/openssl@1.1/include -I/opt/homebrew/opt/libyaml/include
+- Debugging not work
+
 Development
 -----------
 
