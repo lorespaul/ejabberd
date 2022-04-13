@@ -109,6 +109,7 @@
 -export([redis_port/0]).
 -export([redis_queue_type/0]).
 -export([redis_server/0]).
+-export([redis_stream_maxlen/0]).
 -export([registration_timeout/0]).
 -export([resource_conflict/0, resource_conflict/1]).
 -export([router_cache_life_time/0]).
@@ -769,6 +770,10 @@ redis_queue_type() ->
 -spec redis_server() -> string().
 redis_server() ->
     ejabberd_config:get_option({redis_server, global}).
+
+-spec redis_stream_maxlen() -> integer().
+redis_stream_maxlen() ->
+    ejabberd_config:get_option({redis_stream_maxlen, global}).
 
 -spec registration_timeout() -> 'infinity' | pos_integer().
 registration_timeout() ->

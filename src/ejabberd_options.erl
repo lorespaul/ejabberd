@@ -307,6 +307,8 @@ opt_type(redis_queue_type) ->
     econf:enum([ram, file]);
 opt_type(redis_server) ->
     econf:string();
+opt_type(redis_stream_maxlen) ->
+    econf:non_neg_int();
 opt_type(registration_timeout) ->
     econf:timeout(second, infinity);
 opt_type(resource_conflict) ->
@@ -615,6 +617,7 @@ options() ->
      {redis_queue_type,
       fun(Host) -> ejabberd_config:get_option({queue_type, Host}) end},
      {redis_server, "localhost"},
+     {redis_stream_maxlen, "1000"},
      {registration_timeout, timer:seconds(600)},
      {resource_conflict, acceptnew},
      {router_cache_life_time,

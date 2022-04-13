@@ -36,7 +36,7 @@
 -export([multi/1, get/1, set/2, del/1, info/1,
 	 sadd/2, srem/2, smembers/1, sismember/2, scard/1,
 	 hget/2, hset/3, hdel/2, hlen/1, hgetall/1, hkeys/1,
-	 subscribe/1, publish/2, script_load/1, evalsha/3]).
+	 subscribe/1, publish/2, script_load/1, evalsha/3, xadd/3]).
 
 %% gen_server callbacks
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
@@ -634,3 +634,15 @@ re_subscribe(Pid, Subs) ->
 eredis_subscribe(Pid, Channels) ->
     ?DEBUG("Redis query: ~p", [[<<"SUBSCRIBE">>|Channels]]),
     eredis_sub:subscribe(Pid, Channels).
+
+
+-spec xadd(iodata(), iodata(), iodata()) -> {ok, undefined | binary()} | redis_error().
+xadd(Stream, Field, Val) ->
+	Maxlen = ejabberd_option:redis_stream_maxlen(),
+	Cmd = ["XADD", Stream, "MAXLEN", "~", Maxlen, "*", Field, Val],
+	case erlang:get(?TR_STACK) of
+		undefined ->
+			q(Cmd);
+		Stack ->
+			tr_enq(Cmd, Stack)
+	end.
