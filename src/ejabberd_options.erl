@@ -617,7 +617,7 @@ options() ->
      {redis_queue_type,
       fun(Host) -> ejabberd_config:get_option({queue_type, Host}) end},
      {redis_server, "localhost"},
-     {redis_stream_maxlen, "1000"},
+     {redis_stream_maxlen, 1000},
      {registration_timeout, timer:seconds(600)},
      {resource_conflict, acceptnew},
      {router_cache_life_time,

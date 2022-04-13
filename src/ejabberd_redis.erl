@@ -638,8 +638,8 @@ eredis_subscribe(Pid, Channels) ->
 
 -spec xadd(iodata(), iodata(), iodata()) -> {ok, undefined | binary()} | redis_error().
 xadd(Stream, Field, Val) ->
-	Maxlen = ejabberd_option:redis_stream_maxlen(),
-	Cmd = ["XADD", Stream, "MAXLEN", "~", Maxlen, "*", Field, Val],
+	Maxlen = integer_to_list(ejabberd_option:redis_stream_maxlen()),
+	Cmd = [<<"XADD">>, Stream, "MAXLEN", "~", Maxlen, "*", Field, Val],
 	case erlang:get(?TR_STACK) of
 		undefined ->
 			q(Cmd);
