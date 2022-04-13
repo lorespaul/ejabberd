@@ -39,5 +39,6 @@
 Mnesia.nonode@nohost/
 .idea/
 .DS_Store
-etc/ejabberd/ejabberd.yml
+etc/ejabberd/*
 var/*
+*.iml
